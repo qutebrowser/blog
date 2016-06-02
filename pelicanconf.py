@@ -7,6 +7,13 @@ SITENAME = 'qutebrowser development blog'
 SITEURL = ''
 
 PATH = 'content'
+STATIC_PATHS = ['images']
+
+PLUGIN_PATHS = ['pelican-plugins']
+PLUGINS = ['thumbnailer']
+IMAGE_PATH = 'images'
+THUMBNAIL_DIR = 'images'
+THUMBNAIL_SIZES = {'small': '200x?'}
 
 TIMEZONE = 'Europe/Paris'
 
