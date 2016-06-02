@@ -15,6 +15,13 @@ IMAGE_PATH = 'images'
 THUMBNAIL_DIR = 'images'
 THUMBNAIL_SIZES = {'small': '200x?'}
 
+THEME = './pelican-themes/monospace'
+DESCRIPTION = ('Daily(-ish) blog for the '
+               '<a href="http://igg.me/at/qutebrowser">qutebrowser '
+               'QtWebEngine crowdfunding</a>.</br></br>'
+               '<a href="http://www.qutebrowser.org/">qutebrowser website</a>'
+               '<br/><a href="feeds/all.atom.xml">atom feed</a>')
+
 TIMEZONE = 'Europe/Paris'
 
 DEFAULT_LANG = 'en'
