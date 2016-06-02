@@ -1,6 +1,8 @@
 print("Hello World")
 ####################
 
+:category: webengine
+
 This is a test post.
 
 .. code-block:: python
