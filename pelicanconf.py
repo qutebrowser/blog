@@ -20,7 +20,15 @@ DESCRIPTION = ('Daily(-ish) blog for the '
                '<a href="http://igg.me/at/qutebrowser">qutebrowser '
                'QtWebEngine crowdfunding</a>.</br></br>'
                '<a href="http://www.qutebrowser.org/">qutebrowser website</a>'
-               '<br/><a href="feeds/all.atom.xml">atom feed</a>')
+               '<br/>feeds: <a href="feeds/all.atom.xml">atom</a> / '
+               '<a href="feeds/all.rss.xml">rss</a>')
+
+SITEURL = 'http://blog.qutebrowser.org'
+FEED_DOMAIN = SITEURL
+FEED_ATOM = 'feeds/all.atom.xml'
+FEED_RSS = 'feeds/all.rss.xml'
+CATEGORY_FEED_RSS = 'feeds/%s.rss.xml'
+TAG_FEED_RSS = 'feeds/%s.rss.xml'
 
 TIMEZONE = 'Europe/Paris'
 
