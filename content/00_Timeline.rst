@@ -141,3 +141,18 @@ Long story short: It's by no means a drop-in replacement (like initially
 claimed by Qt) - but most users won't notice any missing functionality which I
 can't implement at all with a recent enough QtWebEngine, and things are getting
 better and better.
+
+**How is this blog made?**:
+
+Using `spacemacs`_, writing `ReStructuredText`_, storing it in a `git`_ repo,
+processing it with `Pelican`_, the `Monospace theme`_ and the `thumbnailer`_
+plugin.
+
+Definitely a better workflow than Wordpress ;)
+
+.. _spacemacs:  http://spacemacs.org/
+.. _ReStructuredText: https://en.wikipedia.org/wiki/ReStructuredText
+.. _git: https://git-scm.com/
+.. _Pelican: http://blog.getpelican.com/
+.. _Monospace theme: https://github.com/getpelican/pelican-themes/tree/master/monospace/
+.. _thumbnailer: https://github.com/getpelican/pelican-plugins/tree/master/thumbnailer
