@@ -25,23 +25,11 @@ DESCRIPTION = ('Daily(-ish) blog for the '
                '<a href="feeds/all.rss.xml">rss</a>')
 
 SITEURL = 'http://blog.qutebrowser.org'
-FEED_DOMAIN = SITEURL
-FEED_ATOM = 'feeds/all.atom.xml'
-FEED_RSS = 'feeds/all.rss.xml'
-CATEGORY_FEED_RSS = 'feeds/%s.rss.xml'
-TAG_FEED_RSS = 'feeds/%s.rss.xml'
 
 TIMEZONE = 'Europe/Paris'
 
 DEFAULT_LANG = 'en'
 DEFAULT_DATE = 'fs'
-
-# Feed generation is usually not desired when developing
-FEED_ALL_ATOM = None
-CATEGORY_FEED_ATOM = None
-TRANSLATION_FEED_ATOM = None
-AUTHOR_FEED_ATOM = None
-AUTHOR_FEED_RSS = None
 
 # Blogroll
 LINKS = ()
