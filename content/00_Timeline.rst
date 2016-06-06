@@ -118,7 +118,7 @@ Frequently asked questions
 **When will I be able to use QtWebEngine?**:
 
 This depends on what features you need, and how fast I'll get them to work. 
-Estmating how long the steps outlined above will take is quite difficult, but I
+Estimating how long the steps outlined above will take is quite difficult, but I
 hope you'll have something to try after the first week or so.
 
 Also note you'll need to have a quite recent Qt (5.6, maybe even 5.7 which
