@@ -10,7 +10,7 @@ PATH = 'content'
 STATIC_PATHS = ['images']
 
 PLUGIN_PATHS = ['pelican-plugins']
-PLUGINS = ['thumbnailer']
+PLUGINS = ['thumbnailer', 'filetime_from_git']
 IMAGE_PATH = 'images'
 THUMBNAIL_DIR = 'images'
 THUMBNAIL_SIZES = {'small': '200x?'}
@@ -29,7 +29,6 @@ SITEURL = 'http://blog.qutebrowser.org'
 TIMEZONE = 'Europe/Paris'
 
 DEFAULT_LANG = 'en'
-DEFAULT_DATE = 'fs'
 
 # Blogroll
 LINKS = ()
