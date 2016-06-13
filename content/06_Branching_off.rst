@@ -4,7 +4,7 @@ Day 6: Branching off
 
 :category: webengine
 
-After `releasing`_ v0.6.0 last Friday, I could finally start refactoring stuff
+After `releasing`_ v0.7.0 last Friday, I could finally start refactoring stuff
 for QtWebEngine support today.
 
 .. _releasing: {filename}/release_v0.6.0.rst
