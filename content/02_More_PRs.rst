@@ -35,7 +35,7 @@ sending commands to it, and parsing its log.
 If such a scenario fails however, you only can see what failed in the
 underlying python code. I improved the output to add this:
 
-.. image:: images/bdd.png
+.. image:: /images/bdd.png
    :alt: improved BDD output
 
 ``pytest-bdd`` made this easy by adding a ``scenario`` attribute to pytest's

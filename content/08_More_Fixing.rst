@@ -39,8 +39,8 @@ My "office"
 Some people wondered if I'm working from home - to avoid distractions, I'm
 actually using the local `hackerspace`_ as my "office". Here's how it looks:
 
-.. image:: images/office_small.png
+.. image:: /images/office_small.png
    :alt: my workplace for qutebrowser
-   :target: images/office.png
+   :target: /images/office.png
 
 .. _hackerspace: https://ccczh.ch/Hackerspace/

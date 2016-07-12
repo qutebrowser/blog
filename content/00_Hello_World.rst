@@ -13,6 +13,6 @@ This is a test post.
 
 Do images work?
 
-.. image:: images/qutebrowser_small.png
+.. image:: /images/qutebrowser_small.png
    :alt: qutebrowser logo
-   :target: images/qutebrowser.png
+   :target: /images/qutebrowser.png

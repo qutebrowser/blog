@@ -17,7 +17,7 @@ qutebrowser ones as well:
 
 .. image:: /images/stickers/stickers_2_small.jpg
    :alt: qutebrowser and pytest stickers
-   :target: /images/stickers/stickers_1.jpg
+   :target: /images/stickers/stickers_2.jpg
 
 As I had the data in a (somewhat messy) CSV from Indiegogo with notes added by
 hand, I wrote a small `script <http://paste.the-compiler.org/view/7d4a13d1>`_

@@ -7,7 +7,7 @@ Day 4: Playing whack-a-mole
 
 Today, I felt like I was forced to play whack-a-mole:
 
-.. figure:: images/mole.png
+.. figure:: /images/mole.png
    :alt: whack-a-mole
 
    (Image cc by-nc-sa by `Mommysaurus75`_ on Flickr)

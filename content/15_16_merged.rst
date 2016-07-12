@@ -33,9 +33,9 @@ to try it out!
 Be careful however - other than basic browsing, some scrolling and zooming not
 much is working yet:
 
-.. image:: images/errorpage_small.png
+.. image:: /images/errorpage_small.png
    :alt: Chromium error page in qutebrowser
-   :target: images/errorpage.png
+   :target: /images/errorpage.png
 
 After that worked, I mainly spent time getting QtWebKit specific code out of
 qutebrowser's ``QWebView`` subclass - either `removing it entirely`_ because

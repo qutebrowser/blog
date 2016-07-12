@@ -11,9 +11,9 @@ for QtWebEngine support today.
 
 Nothing really works properly yet, but I was able to open a website:
 
-.. image:: images/day_6_small.png
+.. image:: /images/day_6_small.png
    :alt: qutebrowser with QtWebEngine user agent
-   :target: images/day_6.png
+   :target: /images/day_6.png
 
 I also merged a `pull request`_ to master which adds a ``{host}`` replacement
 for the title/tab-title format settings, and reviewed two other new pull

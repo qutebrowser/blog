@@ -93,5 +93,5 @@ Everything apart from that is either broken or untested - but it's a start!
 Seeing the first tests pass definitely was a satisfying feeling :)
 
 .. _branched off: {filename}/06_Branching_off.rst
-.. _screenshot: images/day_6.png
+.. _screenshot: /images/day_6.png
 .. _API of a tab: https://github.com/The-Compiler/qutebrowser/blob/qtwebengine/qutebrowser/browser/tab.py
