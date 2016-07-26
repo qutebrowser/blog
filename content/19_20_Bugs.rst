@@ -1,0 +1,72 @@
+###########################
+Day 19/20: Bugs everywhere!
+###########################
+
+:category: webengine
+
+If you're a programmer, you might know these days where everything just seems
+to fall apart from all the bugs you run into. Thursday and Friday were those
+days for me... ;)
+
+But let's start with the things which went well first! I implemented more
+scrolling functionality with QtWebEngine (`7adc8ab`_, `6958642`_, `e2c4e63`_)
+which means the scrolling part is now done apart from ``scroll.at_bottom()``.
+
+I also finally was able to `track down and fix`_ a bug where some config values
+where set back to the default very rarely - turns out it was an accidental
+``return`` (instead of ``continue``) when reading the options and there is an
+option which has been removed in qutebrowser...
+
+I then wanted to investigate and fix a `crash`_ I saw on exit with
+QtWebEngine. I wasn't able to construct a minimal example, so I tried to gather
+as much information as possible for the report. To do so, I did a special debug
+build of Python so I could use `valgrind`_ which is very useful to track down
+things like this.
+
+Turns out I also needed to recompile PyQt to work with a debug build of Python.
+Since I planned to do that anyways, I decided to build the newest PyQt snapshot
+(which will soon be released as PyQt 5.7). qutebrowser didn't start all,
+because of a `off-by-one error`_ in PyQt when connecting slots...
+
+After reporting both bugs, I took a look at why AppVeyor (the Windows CI
+qutebrowser uses) was `failing`_ since a few days - turns out they did some
+update to their build image which now uses Python 3.5 instead of 3.4 by
+default, which broke the registry hack qutebrowser was using to make sure PyQt
+gets installed at the right location.
+
+After `fixing`_ that issue, AppVeyor failed because I forgot to adjust a
+Windows-only script after the recent CherryPy (webserver used for end-to-end
+tests) update.
+
+That was also `fixed`_, and AppVeyor still fails for some reason I don't really
+understand yet...
+
+In a new `pull request`_ there were also some issues related to qutebrowser's
+object registry - I think I really should get `rid of it`_ rather sooner than
+later, given that it also `causes issues`_ with tests added for the new tab API
+on older PyQt versions. This will probably take a day or two, but it seems like
+it's really needed!
+
+Right now, I'm sitting in the airplane to `Bilbao`_ (Spain) for the
+`EuroPython`_ conference, which means things will be quiet here for another
+week.
+
+After that, I'll try to get everything running smooth again, get rid of the
+objreg code as much as possible, and take care of the remaining missing
+QtWebEngine features (like the web inspector, settings, downloads and hinting).
+
+.. _7adc8ab: https://github.com/The-Compiler/qutebrowser/commit/7adc8ab2d61c63bdcf6eba16fde90979c03725fe
+.. _6958642: https://github.com/The-Compiler/qutebrowser/commit/695864281bd480bbfdb9afb752a4cb47663e6f12
+.. _e2c4e63: https://github.com/The-Compiler/qutebrowser/commit/e2c4e6301f8ffb13ad645ab93efb1b1fe436faaf
+.. _track down and fix: https://github.com/The-Compiler/qutebrowser/commit/7b9d38e438189f33551e801ac31b44cd5a082e39
+.. _crash: https://bugreports.qt.io/browse/QTBUG-54769
+.. _valgrind: http://valgrind.org/
+.. _off-by-one error: https://www.riverbankcomputing.com/pipermail/pyqt/2016-July/037749.html
+.. _failing: https://ci.appveyor.com/project/The-Compiler/qutebrowser/build/master-3155/job/cfo40d5id37b72i1
+.. _fixing: https://github.com/The-Compiler/qutebrowser/commit/701c2fe7d04a0a31ec9e70faab7bc9bf2d69d69d
+.. _fixed: https://github.com/The-Compiler/qutebrowser/commit/6f65973237c327b797da8c9aad94b6cb4cbec791
+.. _pull request: https://github.com/The-Compiler/qutebrowser/pull/1637
+.. _rid of it: https://github.com/The-Compiler/qutebrowser/issues/640
+.. _causes issues: https://github.com/The-Compiler/qutebrowser/issues/1638
+.. _Bilbao: https://en.wikipedia.org/wiki/Bilbao
+.. _EuroPython: https://ep2016.europython.eu/en/
