@@ -24,7 +24,7 @@ DESCRIPTION = ('Daily(-ish) blog for the '
                '</a><br/>feeds: <a href="feeds/all.atom.xml">atom</a> / '
                '<a href="feeds/all.rss.xml">rss</a>')
 
-SITEURL = 'http://blog.qutebrowser.org'
+SITEURL = 'https://blog.qutebrowser.org'
 
 TIMEZONE = 'Europe/Paris'
 
