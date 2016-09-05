@@ -4,3 +4,4 @@ __pycache__
 /pelican-themes
 /pelican.pid
 /srv.pid
+/.venv
