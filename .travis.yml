@@ -1,8 +1,10 @@
 language: python
 python: 3.5
 
-script:
-  - pip install pelican
+install:
+  - pip install pelican GitPython
   - git clone https://github.com/getpelican/pelican-themes.git
   - git clone https://github.com/getpelican/pelican-plugins.git
+
+script:
   - pelican content
