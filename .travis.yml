@@ -3,4 +3,6 @@ python: 3.5
 
 script:
   - pip install pelican
+  - git clone https://github.com/getpelican/pelican-themes.git
+  - git clone https://github.com/getpelican/pelican-plugins.git
   - pelican content
