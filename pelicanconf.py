@@ -16,9 +16,7 @@ THUMBNAIL_DIR = 'images'
 THUMBNAIL_SIZES = {'small': '200x?'}
 
 THEME = './pelican-themes/monospace'
-DESCRIPTION = ('Daily(-ish) blog for the '
-               '<a href="http://igg.me/at/qutebrowser">qutebrowser '
-               'QtWebEngine crowdfunding</a>.<br/><br/>'
+DESCRIPTION = ('qutebrowser development blog<br/><br/>'
                '<a href="http://www.qutebrowser.org/">website</a><br/>'
                '<a href="https://github.com/The-Compiler/qutebrowser">GitHub'
                '</a><br/>feeds: <a href="feeds/all.atom.xml">atom</a> / '
