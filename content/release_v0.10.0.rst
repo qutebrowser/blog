@@ -29,8 +29,7 @@ Added
 
    -  Printing support with Qt >= 5.8
    -  Proxy support with Qt >= 5.8
-   -  Tor the ``general -> print-element-backgrounds`` option with Qt >=
-      5.8
+   -  The ``general -> print-element-backgrounds`` option with Qt >= 5.8
    -  The ``content -> cookies-store`` option
    -  The ``storage -> cache-size`` option
    -  The ``colors -> webpage.bg`` option
@@ -53,7 +52,7 @@ Changed
 -  PyQt 5.7/Qt 5.7.1 is now required for the QtWebEngine backend
 -  Scrolling with the scrollwheel while holding shift now scrolls
    sideways
--  New way of clicking hints with which solves various small issues
+-  New way of clicking hints which solves various small issues
 -  When yanking a mailto: link via hints, the mailto: prefix is now
    stripped
 -  Zoom level messages are now not stacked on top of each other anymore
@@ -72,7 +71,7 @@ Fixed
 -  Various bugs with Qt 5.8 and QtWebEngine:
 
    -  Segfault when closing a window
-   -  Segfault with when closing a tab with a search active
+   -  Segfault when closing a tab with a search active
    -  Fixed various mouse actions (like automatically entering insert
       mode) not working
    -  Fixed hints sometimes not working
