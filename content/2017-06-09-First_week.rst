@@ -30,7 +30,7 @@ made me realize that's not feasible. However, only relatively little config code
 is impacted by it, so it seems reasonable to let rcorre (the contributor doing
 that PR) work in parallel on that while I'm working on the config.
 
-.. _completion refactoring: https://github.com/qutebrowser/qutebrowser/pull/2295k
+.. _completion refactoring: https://github.com/qutebrowser/qutebrowser/pull/2295
 .. _SQL indices: https://github.com/rcorre/qutebrowser/commit/1e016cd4404df642a87d2855621a1178a9fc1046
 .. _splitting: https://github.com/rcorre/qutebrowser/compare/0e6b9b46b0243eaf7fee28b17d43bc5c56632993~2...rcorre:0e6b9b46b0243eaf7fee28b17d43bc5c56632993
 .. _cache: https://github.com/rcorre/qutebrowser/commit/939d2823ed3c191303d04a965cc43e3728ab819f
