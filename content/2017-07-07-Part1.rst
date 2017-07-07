@@ -1,0 +1,364 @@
+###################################
+Config revolution - Part 1 finished
+###################################
+
+:category: config
+
+Since the last blogpost, I worked on the new config for another 5 days, so we're
+on day 17 now (already! Gnah...).
+
+Sorry there wasn't an update in such a long time. I wanted to write a blog post
+multiple times, even wrote about half of it, and then other stuff got in the
+way. I guess it shows that I prefer coding to blogging... :D
+
+My eye surgery `went quite well`_, and I was able to start working again last
+week.
+
+This is how things look:
+
+.. code-block:: raw
+
+   218 files changed, 10234 insertions(+), 13768 deletions(-)
+
+This is definitely the biggest change in qutebrowser's history... QtWebEngine
+was something like ~2500 new lines (and ~900 deleted) when I was able to merge
+the branch back in, but here it's all or nothing, because I only want one big
+config breakage for users using the git repo.
+
+All tests are passing on the ``new-config`` branch by now:
+
+.. code-block:: raw
+
+   4888 passed, 170 skipped, 60 xfailed in 605.11 seconds
+
+This means the first phase of the config refactoring is complete. Everything is
+using the new config (with the exception of the setting completion, which is
+postponed until the `new completion code`_ is in), and everything is cleaned up.
+
+I originally wanted to spend less time on this and postpone tests and such to
+after the crowdfunded time (and instead focus on the Python config and
+per-domain settings), but I decided it'd be better to finish what I started
+first. Otherwise, with such big changes, this would create a lot of trouble down
+the line.
+
+If you want to try the ``new-config`` branch, it's definitely ready to see some
+testing, and I'd appreciate feedback! There is no ``config.py`` file yet, but if
+you're the kind of person who prefers ``:set`` or ``qute://settings``, it should
+be good to go! Note that on Windows and macOS there will be breaking changes to
+the config's location, though - see the `project board`_ on GitHub to see what's
+still missing.
+
+With that done, I will now take a longer break from qutebrowser work and focus
+on my upcoming exams instead. I'll be back for the remaining 3 days (and maybe a
+bit more full-time work on top, time permitting) in September, after my exams
+are done.
+
+The T-shirts will also be postponed until then - like shown on the `Kickstarter
+page`_, it's going to be somewhen between September to December until they are
+sent.
+
+See the next few sections on what happened in the past few days, though!
+
+.. _went quite well: https://www.reddit.com/r/Strabismus/comments/6jkqla/achievement_unlocked_stereo_vision/
+.. _new completion code: https://github.com/qutebrowser/qutebrowser/pull/2295
+.. _Kickstarter page: https://www.kickstarter.com/projects/the-compiler/qutebrowser-v10-with-per-domain-settings
+.. _project board: https://github.com/qutebrowser/qutebrowser/projects/2
+
+***********
+Keybindings
+***********
+
+Like I mentioned in the `last update`_, my previous solution for handling
+keybindings wasn't really usable. Originally, all the default bindings were
+stored in the config like this:
+
+.. code-block:: python
+
+   bindings.commands = {
+       'normal': {
+           'gg': 'scroll-perc 0',
+           ...
+       },
+       ...
+   }
+
+When adding a new binding, the config would (correctly) detect that
+``bindings.commands`` was changed, and then add the complete new value
+(including all default bindings) in your ``autoconfig.yml``. This clearly wasn't
+the way to go.
+
+I found a straightforward solution though: There are now two settings,
+``bindings.default`` and ``bindings.commands`` (empty by default, i.e. ``{}``)
+in the config. For keybindings, both are merged, starting with the default one.
+
+This has various benefits:
+
+- When you want to add a new binding, you only mutate ``bindings.commands``, so
+  you only get your custom bindings in your config file.
+- When you don't want to load any default binding at all, you set
+  ``bindings.default = {}`` - then only your custom bindings are bound.
+- When you want the default bindings, but don't want any new defaults
+  automatically, you pin ``bindings.default`` to its default value
+  explicitly.
+
+I think this is a great solution - it's straightforward, and it makes things
+very flexible.
+
+With that in place, I also updated all the code using those keybindings, and
+simplified some of it. That means ``:bind`` and ``:unbind`` now work like you'd
+expect again (and modify ``bindings.commands``).
+
+I also added a ``bindings.key_mappings`` which can be used to transparently map
+a key to another one. For example, by default ``<Ctrl-[>`` is mapped to
+``<Escape>`` and ``<Ctrl-J>`` to ``<Enter>``, so for any binding which is bound
+to ``<Enter>`` you can press ``<Ctrl-J>`` instead.
+
+This is probably also very useful to adjust to different keyboard layouts, if
+you want to keep the bindings in the same place without rebinding everything.
+
+.. _`last update`: https://blog.qutebrowser.org/refactoring-more-things-a-working-yaml-config-and-more.html
+
+*******
+Testing
+*******
+
+To make sure the new config doesn't end up as the unmaintainable mess the old
+config was, I decided pretty early on that I wanted 100% test coverage for all
+new config code, just like `for some other modules`_ which are easy to test.
+
+`Writing the tests`_ turned up some issues - among them `an issue`_ where
+modifying the configuration also modified the default value stored in
+qutebrowser internally... This one definitely would've been a big pain to debug
+further down the road.
+
+After getting those all to pass (with 100% coverage), I also updated all older
+tests for the new configuration - this `turned out to be`_ much more
+straightforward than I thought it would be, with only a few things requiring a
+bit more work (mostly tests related to keybindings).
+
+Completion tests are still skipped though, I'll take care of those once the new
+completion is merged in.
+
+After everything looked nice and green locally, I pushed them and hoped things
+would look the same on Travis - however, I was in for some not-so-nice suprises with older Python versions:
+
+- Python 3.4 is `worse at dealing with circular imports`_ than 3.5 is, so I
+  had to `move some imports`_ to accomodate for that. I really hope I'll be
+  `able to drop`_ Python 3.4 for v1.0, though!
+- In Python 3.6, dictionaries are `ordered by default`_ (as an implementation
+  detail), which caused me to not `catch some issues`_ where the tests relayed
+  on that property.
+
+Then there were some bigger issues...
+
+.. _for some other modules: https://github.com/qutebrowser/qutebrowser/blob/new-config/scripts/dev/check_coverage.py#L42
+.. _Writing the tests: https://github.com/qutebrowser/qutebrowser/tree/new-config/tests/unit/config
+.. _an issue: https://github.com/qutebrowser/qutebrowser/commit/e259293f8/
+.. _turned out to be: https://github.com/qutebrowser/qutebrowser/compare/78d7ac311f78595450519e4d754696c4bfb2cc9e...9db4a8cb43001838fbc76f849662eef82ca3bf5f
+.. _worse at dealing with circular imports: https://bugs.python.org/issue17636
+.. _move some imports: https://github.com/qutebrowser/qutebrowser/commit/91cd6c6288dae389818cc40de0d223cd9a16363d
+.. _able to drop: https://github.com/qutebrowser/qutebrowser/issues/2742
+.. _ordered by default: https://docs.python.org/3/whatsnew/3.6.html#whatsnew36-compactdict
+.. _catch some issues: https://github.com/qutebrowser/qutebrowser/commit/0528a800f264a52b7dfdbff21c5d2b64a9001ad2
+
+****************
+Unicode is hard!
+****************
+
+A test using `hypothesis`_ to do some intelligent fuzzing showed an issue I haven't seen locally, and was quite interesting.
+A slightly simplified version of the test:
+
+.. code-block:: python
+
+   @hypothesis.given(val=strategies.dictionaries(
+       strategies.text(min_size=1), strategies.booleans()))
+   def test_hypothesis(val):
+       d = configtypes.Dict(keytype=configtypes.String(),
+                            valtype=configtypes.Bool(),
+                            none_ok=True)
+       try:
+           converted = d.to_py(val)
+           expected = converted if converted else None
+           assert d.from_str(d.to_str(converted)) == expected
+       except configexc.ValidationError:
+           # Invalid unicode in the string, etc...
+           hypothesis.assume(False)
+
+It uses Hypothesis to get dictionaries which are filled with random data like
+``{'x': True}``, converts them to a string (like qutebrowser would when e.g.
+showing the value in the completion), converts that value back to Python again
+(like qutebrowser would when using ``:set``) and makes sure the same thing comes
+out.
+
+The problem here was that qutebrowser uses `JSON`_ to convert lists/dicts in the
+new config to a string (because it outputs compact, one-line representations),
+but `YAML`_ to parse lists/dicts from a string (because it allows for more a
+more lightweight syntax like ``{Hello: World}`` instead of
+``{"Hello": "World"}``).
+
+This shouldn't be a problem because YAML is `supposed to be`_ a superset of
+JSON - however, turned out that's not true. Unicode codepoints starting from
+U+10000 are encoded as a `surrogate`_ in UTF-16. Since JavaScript (until
+recently) didn't have escapes for those 4-byte characters, JSON `encodes them`_
+to a UTF-16 surrogate, which then gets read incorrectly by YAML:
+
+.. code-block:: python
+
+   >>> yaml.load(json.dumps({'\U00010000': True}))
+   {'\ud800\udc00': True}
+
+The "solution" for this was easy: Simply `disallowing`_ those characters in the
+config inside dicts and lists.
+
+.. _hypothesis: http://hypothesis.works/
+.. _JSON: https://en.wikipedia.org/wiki/JSON
+.. _YAML: https://en.wikipedia.org/wiki/YAML
+.. _supposed to be: https://en.wikipedia.org/wiki/YAML#Comparison_with_JSON
+.. _surrogate: https://en.wikipedia.org/wiki/UTF-16#U.2B10000_to_U.2B10FFFF
+.. _encodes them: https://stackoverflow.com/questions/38463038/why-does-json-encode-utf-16-surrogate-pairs-instead-of-unicode-code-points-direc/38552626#38552626
+.. _disallowing: https://github.com/qutebrowser/qutebrowser/commit/9ac2dbcc80330c6090ecdce656046931e8cf591b
+
+**************************
+configdata.yml performance
+**************************
+
+With the new configuration, all available config options are `defined`_ in a
+YAML file (instead of an `almost uneditable`_ Python file like before), see my
+older blog posts for details.
+
+On every start, qutebrowser reads that config file and generates an internal
+structure with all available settings and default values. Now for some reason,
+this takes around 20 seconds (!) on Travis CI, for a ~2200 line YAML file. I've
+heard about YAML being a bit slow sometimes, but certainly didn't expect this.
+
+I did some tests locally, and checked what difference the C extension of PyYAML
+makes (it has both an accelerated C implementation with a thin Python layer, and
+a pure-Python implementation).
+
+With the C extension, reading the file took around 20ms on my machine, which is
+entirely reasonable. With it disabled, this jumped to 200ms which already isn't
+as nice anymore, but still bearable. But still, this is all orders of magnitude
+off from 20 seconds.
+
+I still have no idea what happened there - I decided to `open an issue`_ (with
+some ideas like "compiling" the YAML to a Python file), and move on for now
+(after skipping the benchmark I wrote on Travis, because it took way too long).
+
+************************
+Documentation generation
+************************
+
+The `settings reference`_ in qutebrowser's documentation is autogenerated (but
+stored in the repository), with Travis making sure it doesn't end up being stale.
+
+`Updating`_ the script to generate docs for the new config was relatively easy
+(especially because every config type already had a ``.to_str()`` implemented),
+but Travis told me that it still detected uncommited changes in the docs.
+
+After `changing the script`_ which checks for those to show a ``git diff`` when
+it fails, it was clear what was happening: It was dictionaries being ordered
+differently again. A value like ``{"one": 1, "two": 2}`` could be shown as
+either that, or ``{"two": 2, "one": 1}`` in the docs.
+
+I ended up doing something I wanted to postpone until some later point: Showing
+dictionaries and lists nicely as lists in the documentation, by
+`pretty-printing`_ them with a ``.to_doc()`` method (which would just fall back
+to ``.to_str()`` for most types).
+
+.. _defined: https://github.com/qutebrowser/qutebrowser/blob/new-config/qutebrowser/config/configdata.yml
+.. _almost uneditable: https://github.com/qutebrowser/qutebrowser/blob/v0.11.0/qutebrowser/config/configdata.py#L133
+.. _open an issue: https://github.com/qutebrowser/qutebrowser/issues/2777
+.. _settings reference: https://github.com/qutebrowser/qutebrowser/blob/new-config/doc/help/settings.asciidoc
+.. _Updating: https://github.com/qutebrowser/qutebrowser/commit/25ab3b30c2f3a49932d6d5d1a382dfeed5907b0c#diff-08e76fb7836503b745e1d25e63f4f413
+.. _changing the script: https://github.com/qutebrowser/qutebrowser/commit/f92ccd48936882fbbf069b518769a7d0f07cbc66
+.. _pretty-printing: https://github.com/qutebrowser/qutebrowser/commit/88b878098da5cb410766ad22ba51f068f0cf1dd4
+
+***********
+New release
+***********
+
+This week, PyQt 5.9 was finally `released`_. It ships with Qt 5.9, which comes
+with some `long-awaited`_ QtWebEngine fixes.
+
+This means it was finally time to `release`_ qutebrowser v0.11, with lots of
+bugfixes and new features (like the new private browsing supporting QtWebEngine,
+or pinned tabs).
+
+A lot of the release process is automated already, but unfortunately, things
+didn't go quite as planned at first...
+
+- First, GitHub's API just showed me a "Broken pipe" error when trying to upload
+  the source release. After some while I figured out that the files were kind-of
+  half uploaded, and after removing them again manually, it worked.
+- My Windows VM constantly used 100% CPU and refused to tell me why - and was
+  unusable as a result of that, with some 10s delay for every keypress. A reboot
+  didn't help, but a hard reset did.
+- On Windows, I accidentally ran the release script in a `virtualenv`_ without
+  the `github3`_ package installed - however, the script only failed after some
+  10-15 minutes after the package was built. It now `checks for that`_ earlier.
+- Running qutebrowser from the binary failed because `PyInstaller`_ didn't know
+  about some hidden PyQt OpenGL module - so I `told it`_ about it.
+- On macOS, the QtWebEngine resource files `weren't copied correctly`_.
+  I'm not sure why the last release even worked properly...
+- Unmounting any volumes on my Mac (``hdiutil detach``) mysteriously failed
+  (with a ``device busy``). I adjusted the script to `deal with that`_
+- The script still used the old Windows installer names (``.msi`` instead of
+  ``.exe``), which I `fixed too`_.
+
+This all means this release took more than 3 hours instead of the usual half an
+hour or so... but I managed to upload everything!
+
+.. _released: https://www.riverbankcomputing.com/pipermail/pyqt/2017-July/039378.html
+.. _long-awaited: http://code.qt.io/cgit/qt/qtwebengine.git/tree/dist/changes-5.9.0?h=v5.9.1#n19
+.. _release: https://lists.schokokeks.org/pipermail/qutebrowser-announce/2017-July/000019.html
+.. _virtualenv: https://virtualenv.pypa.io/
+.. _github3: http://github3py.readthedocs.io/en/master/
+.. _checks for that: https://github.com/qutebrowser/qutebrowser/commit/5098aa388b9802c5279322f2500ec19da439bc20
+.. _PyInstaller: http://www.pyinstaller.org/
+.. _told it: https://github.com/qutebrowser/qutebrowser/commit/2df9508e44cd6839075c7be725fb13ced4563a08
+.. _weren't copied correctly: https://github.com/qutebrowser/qutebrowser/commit/8f03a36862bdb0d288937de7ced3785c4d62df52
+.. _deal with that: https://github.com/qutebrowser/qutebrowser/commit/725d4a44f01de99fab5d9e4404a9123f40ec8915
+.. _fixed too: https://github.com/qutebrowser/qutebrowser/commit/eaecfe5882f59abaecabb688340c88b8638f4b1b
+
+**********************
+Completion refactoring
+**********************
+
+The other big change which is currently ongoing for v1.0 (the `new completion
+PR`_ from ``@rcorre``) has also seen some work, with me mostly investing some
+more time in reviewing changes and reviewing the entire contribution (2600 new
+lines, 2700 deleted) again.
+
+After `some more minor things`_ are taken care of, I hope to merge it into
+``master`` (which is now for v1.0 material) soon.
+
+.. _new completion PR: https://github.com/qutebrowser/qutebrowser/pull/2295
+.. _some more minor things: https://github.com/qutebrowser/qutebrowser/pull/2295#issuecomment-313380120
+
+*************
+Miscellaneous
+*************
+
+There was a lot of other stuff too, but this blog post would get way too long if I mentioned them all. Some examples:
+
+- ``content.user_stylesheets`` `is now a list`_ taking multiple CSS files.
+- ``content.headers.do_not_track`` `now allows to`_ not send the `DNT header`_ at all.
+- Various `setting renames`_ and clarifications.
+
+Finally, I wanted to make sure all my thoughts are written down before leaving
+this alone for the next few weeks. After closing various old/stale pull
+requests, I also `opened`_ various new issues to keep track of everything that's
+still missing, and so I can close the old big "Config (r)evolution" `issue`_
+which has gotten quite big (100 comments).
+
+I also made sure the `project board`_ on GitHub for the new config is up to
+date, including a column for all issues which need to be tackled before merging
+this all to master... which will happen in September, after my exams.
+
+.. _is now a list: https://github.com/qutebrowser/qutebrowser/commit/4562a3574b7f887b811a93e76e0f15ac476c6359
+.. _now allows to: https://github.com/qutebrowser/qutebrowser/commit/5ada3606d88f5ee629fcd808f92e6bcaa9303204
+.. _DNT header: https://en.wikipedia.org/wiki/Do_Not_Track
+.. _setting renames: https://github.com/qutebrowser/qutebrowser/issues/2708#issuecomment-312450216
+.. _opened: https://github.com/qutebrowser/qutebrowser/issues?q=is%3Aissue+is%3Aopen+label%3A%22config+revolution%22
+.. _issue: https://github.com/qutebrowser/qutebrowser/issues/499
+.. _project board: https://github.com/qutebrowser/qutebrowser/projects/2
