@@ -1,0 +1,193 @@
+##################
+New config merged!
+##################
+
+:category: config
+
+It's been a long time since the last post here - a new update is way overdue,
+especially seeing that the new config was merged a week ago!
+
+Apologies for the delay! After my exams and holidays were finished, I worked for
+another two days full-time (plus some more) last week. Shortly after that I
+wanted to write this blog post, but I was busy talking to people about their
+issues with the new config, fixing a lot of little bugs, and opening issues for
+everything which might take a bit longer.
+
+For everyone wondering about my exams: They went great! It was quite annoying
+that I had to pause working on qutebrowser before the new config was merged to
+focus on learning, but it definitely was the right decision.
+
+***********************
+End of the crowdfunding
+***********************
+
+Unfortunately, this also means the crowdfunded time of working full-time on
+qutebrowser is finished (at least for this year!). As usual, I'll work as much
+as my time permits in my free time on it, though!
+
+Also, I still haven't had the time to take care of t-shirts yet. This is
+something I plan to look at mainly at weekends, to coordinate with my girlfriend
+who'll recieve the package (as she's in Austria which is in the EU, and I'm
+planning to ship them from Germany again. Turns out getting things over the
+border from Austria to Germany is much easier than Switzerland to Germany).
+
+Back to the good news: I've mentioned it above briefly, the new config is
+finally merged! Some more details about what that means and what has happened
+since the last blogpost will follow.
+
+*************
+The big merge
+*************
+
+I wanted to merge the branch as fast as possible (as pull requests against the
+master branch started to pile up), but there were still some things I wanted to
+do before shipping out the new config to everyone:
+
+- Fixing some bugs which caused the testsuite to fail on the ``new-config`` branch.
+- Merging the newest ``master`` with the new completion code into ``new-config``
+  and resolving a lot of conflicts (thanks to Ryan Roden-Corrent / `@rcorre`_
+  who did a lot of work on this!)
+- Various changes to the module getting filesystem locations (such as the config
+  dir) in order to move data to more correct locations on macOS and Windows.
+- `Removing support`_ for ambiguous keybindings shadowing each other, and the
+  related ``input.ambiguous_timeout`` setting which mostly confused people.
+- `Changing`_ the JavaScript log level setting (``javascript.log``) to be able
+  to map JS loglevels to different qutebrowser loglevels on QtWebEngine.
+- `Implementing`_ support for a ``config.py`` file for manual configuration for advanced users.
+- `Improving`_ error handling so all errors happening in ``config.py`` get
+  caught properly and displayed combined if possible.
+- Changing the `default behavior`_ for Up/Down in command mode to go through the
+  command history, which hopefully makes that more discoverable.
+- Adding a `configdiff`_ page which shows changes in the old config compared to
+  the default, to make it easier to migrate. This was surprisingly easy thanks
+  to Python's `difflib`_ module.
+- Adding a `documentation page`_ for how to configure qutebrowser with the new config.
+- Fixing a bug related to `escaping`_ HTML in various prompts, which became visible with the config errors.
+- Many little bugfixes and improvements.
+
+Here's how things looked like right before the merge:
+
+.. code-block:: raw
+
+   226 files changed, 13144 insertions(+), 14030 deletions(-)
+
+Then on September 16th, I finally merged in all those changes as it was ready to
+roll out to a bigger amount of people. The feedback I've gotten since then was
+quite positive, but there was still a lot to do after the merge!
+
+.. _removing support: https://github.com/qutebrowser/qutebrowser/commit/1fc9817cd43fbebce7592f9bd4993c31e34f839f
+.. _Changing: https://github.com/qutebrowser/qutebrowser/commit/cee51df4fbdfcb7a974a4285e6a3764e070bf300
+.. _Implementing: https://github.com/qutebrowser/qutebrowser/commit/cb806aefa3b1a367fb6e79332504466a9e07781f
+.. _Improving: https://github.com/qutebrowser/qutebrowser/commit/b8fb88f4c27b348ec129cef0638d47f833567a4e
+.. _default behavior: https://github.com/qutebrowser/qutebrowser/commit/7c39600508004c5cb0bbde84f973209e61fec6f9
+.. _configdiff: https://github.com/qutebrowser/qutebrowser/commit/54c417391dbe4544eed7ecfa51aa87292826b10a
+.. _difflib: https://docs.python.org/3/library/difflib.html
+.. _documentation page: https://github.com/qutebrowser/qutebrowser/blob/master/doc/help/configuring.asciidoc
+.. _escaping: https://github.com/qutebrowser/qutebrowser/commit/3179e8c7b9c290bff2683efb6e0564a0301f648f
+
+***************
+After the merge
+***************
+
+With the new config finally merged, I started some additional work and of course
+acted upon the feedback I got from users.
+
+The first thing I did was adjusting a lot of code to make it possible to
+initialize the config very early, before Qt's ``QApplication`` object exists.
+This makes it possible to configure things like the backend to use, or what
+commandline arguments to pass to QtWebEngine/Chromium. There was a bit of work
+involved as Qt's functions for getting e.g. the user's config dir appends the
+application name, but Qt doesn't know about that before the ``QApplication``
+exists. To make this work, qutebrowser now appends the directory if it isn't
+there yet, and `has a test`_ ensuring that those locations match the one Qt
+would return with a QApplication. With that change, support for `migrating
+data`_ written by QtWebEngine before qutebrowser v0.9.0 was also dropped, in the
+hope that nobody uses it anymore.
+
+With that done, I was finally able to add a `qt_args`_ and `backend`_ setting,
+hopefully making qutebrowser wrapper scripts unnecessary!
+
+Also, I decided it was finally time to drop support for old Qt/Python/QtWebKit
+versions, like `announced`_ some while ago. This meant I could delete almost
+1000 lines of code dealing with those old versions (and make other code more
+readable) - and to my surprise, nobody has complained yet!
+
+That change drops support for `Python 3.4`_, `Qt < 5.7.1`_ and `legacy
+QtWebKit`_ (but not the `updated fork`_). This mainly affects Ubuntu Trusty /
+Debian Jessie (where you need to get a newer Python from somewhere and install
+the rest `manually`_) and Gentoo (where you need to install a Python 3.5/3.6
+from "unstable" and a newer QtWebKit or QtWebEngine).
+
+I also `introduced`_ the `attrs`_ library as a new dependency, making writing
+"data classes" in Python much more easier. A lot of projects started using it
+recently, as it definitely helps cutting down a lot of boilerplate code (to the
+point that it's `discussed`_ whether Python should add a similar feature to its
+standard library).
+
+Then I started reviewing crash reports and pull requests I've been ignoring
+because of my exams, as well as fixing lots of small bugs with the new config
+(which is still `ongoing`_).
+
+.. _has a test: https://github.com/qutebrowser/qutebrowser/blob/b8389e4496028fce178031fc79eee478f4d8e4c9/tests/unit/utils/test_standarddir.py#L522-L549
+.. _migrating data: https://github.com/qutebrowser/qutebrowser/commit/a1fa40f0679a0a365a0e33ca3a235b78f311a923
+.. _qt_args: https://github.com/qutebrowser/qutebrowser/commit/fe05947b54be138ef261da00eda01474fc690345
+.. _backend: https://github.com/qutebrowser/qutebrowser/commit/b1b6c462c1a8a30abf37c4d785e5cc9925385b31
+.. _announced: https://github.com/qutebrowser/qutebrowser/issues/2742
+.. _Python 3.4: https://github.com/qutebrowser/qutebrowser/commit/505321c336408073655e33dd43f90dd327521351
+.. _Qt < 5.7.1: https://github.com/qutebrowser/qutebrowser/commit/852baaa8c30b84b0870b235ff69b2d376ba0613f
+.. _legacy QtWebKit: https://github.com/qutebrowser/qutebrowser/commit/3772dc5930e55416ac1eef0ec7a1f612bdf7d617
+.. _updated fork: https://github.com/annulen/webkit/wiki
+.. _manually: https://github.com/qutebrowser/qutebrowser/blob/master/doc/install.asciidoc#installing-qutebrowser-with-tox
+.. _introduced: https://github.com/qutebrowser/qutebrowser/commit/3a5241b642da666e4517a32e0eb945254d86a6da
+.. _attrs: http://www.attrs.org/
+.. _discussed: https://www.python.org/dev/peps/pep-0557/
+.. _ongoing: https://github.com/qutebrowser/qutebrowser/issues?q=is%3Aissue+is%3Aopen+label%3A%22component%3A+config%22
+
+**********
+Other work
+**********
+
+A quick overview about other things which have happened since the last post on
+July 7th:
+
+- The `new completion`_ was merged! `@rcorre`_ has been working on this for over
+  a year, so we're both glad it was finally finished and merged. This means big
+  speed improvements especially for the ``:open`` completion, and easier writing
+  of new completions inside qutebrowser.
+- ``:download`` now `uses the page title`_ as filename in some cases.
+- The status bar gained a new `back/forward indicator`_.
+- Messages are now `shown longer`_ if there are many of them.
+- The ``PyOpenGL`` dependency was dropped by `using a simpler workaround`_ for
+  OpenGL issues with QtWebEngine.
+- Lots of other smaller work!
+
+.. _new completion: https://github.com/qutebrowser/qutebrowser/pull/2295
+.. _@rcorre: https://github.com/rcorre
+.. _uses the page title: https://github.com/qutebrowser/qutebrowser/pull/2753
+.. _back/forward indicator: https://github.com/qutebrowser/qutebrowser/pull/2738
+.. _using a simpler workaround: https://github.com/qutebrowser/qutebrowser/commit/a942613d7fea62932de3ced4008ebbb8ae190bc4
+.. _shown longer: https://github.com/qutebrowser/qutebrowser/pull/2808
+
+*********
+Moving on
+*********
+
+My studies started again last week, so things are going to be a bit slower again
+going forward.
+
+After the current smaller issues with the new config are fixed, the next things
+I want to take care of are what's missing to finally make QtWebEngine the
+default backend everywhere.
+
+Once that's done, the last important missing bit is per-domain settings. Those
+will still be some work, but now that the new config is in, it'll be much easier
+to make it happen.
+
+I'd really like to release v1.0.0 before November 14th, when Firefox 57 will be
+released (dropping support for legacy addons, and thus
+`Vimperator`_ and `Pentadactyl`_). I think per-domain settings are a feature
+which definitely should be in v1.0.0, so I'll try my best to make it happen
+until then.
+
+.. _Vimperator: http://vimperator.org/vimperator.html
+.. _Pentadactyl: http://5digits.org/pentadactyl/
