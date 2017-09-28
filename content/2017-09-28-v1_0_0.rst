@@ -1,0 +1,23 @@
+###################################
+qutebrowser v1.0.0 is coming closer
+###################################
+
+:category: other
+
+just a quick update to let you know that the last one of four big changes is
+now done:
+
+- [x] The new completion, based on sqlite
+- [x] The new config system
+- [x] Dropping legacy support
+- [x] **Making QtWebEngine the default backend**
+
+If QtWebEngine can't be used on your system for some reason, you'll get a
+message about it. If it can, it'll automatically use that unless you set the
+"backend" setting to "webkit".
+
+I still hope to get v1.0.0 with all this out in mid-November, before
+Firefox 57 is released - if possible, with some initial form of per-domain
+settings!
+
+If you find any issues or need help, please let me know!
