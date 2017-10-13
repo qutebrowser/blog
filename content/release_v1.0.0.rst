@@ -19,7 +19,13 @@ enough big things in v1.0.0! :)
 
 Enjoy!
 
-The full changelog for this release:
+**edit:** I just released v1.0.1 which fixes three bugs introduced in v1.0.0:
+
+- Fixed starting after customizing `fonts.tabs` or `fonts.debug_console`.
+- Fixed starting with old PyQt versions compiled against newer Qt versions.
+- Fixed check for PyQt version to correctly enforce 5.7 (not 5.2).
+
+The full changelog for v1.0.0:
 
 Major changes
 -------------
@@ -27,7 +33,7 @@ Major changes
 - Dependency changes:
 
   - Support for legacy QtWebKit (before 5.212 which is
-    `distributed independently from Qt <https://github.com/annulen/webkit/wiki>`__
+    `distributed independently from Qt <https://github.com/annulen/webkit/wiki>`__)
     is dropped.
   - Support for Python 3.4 is dropped.
   - Support for Qt before 5.7.1 and PyQt before 5.7 is dropped.
