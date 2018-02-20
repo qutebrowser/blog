@@ -1,0 +1,64 @@
+###############################################################
+T-Shirts shipped, initial implementation of per-domain settings
+###############################################################
+
+:category: config
+
+Last Saturday, I finally managed to ship all t-shirts with some much appreciated
+help from a friend and my SO! You should hopefully get yours soon (I'd imagine
+starting today for people from Germany). **I'd really appreciate it if you could
+send me a quick mail (mail@qutebrowser.org) or ping me on IRC (#qutebrowser on
+Freenode) if yours arrived** (and in what country you are).That helps me to keep
+track of how things look, since all shirts are sent without tracking.
+
+We ended up bringing a big ~18kg parcel to the post office containing 55
+envelopes:
+
+.. image:: /images/2017_shirts_1_small.jpg
+   :target: /images/2017_shirts_1.jpg
+   :alt: A big box of packed t-shirts
+
+.. image:: /images/2017_shirts_2_small.jpg
+   :target: /images/2017_shirts_2.jpg
+   :alt: A big box of packed t-shirts
+
+As usual, not everything went quite to plan - here's a list of the mistakes we
+thankfully caught:
+
+- I accidentally discarded a sheet of labels which still had three labels on it.
+  This was caught by counting the envelopes at the end, and easy to re-print.
+- Someone almost got a lady-cut M instead of a regular-cut one. Really glad we
+  caught that one before it was too late.
+- The glue on the padded envelopes didn't really hold well, so one opened while
+  we were handling them. It turns out others were really close to opening as
+  well - we were really lucky this happened while they were still at our place,
+  and fixed it with some additional tape.
+- It turns out a "big letter" shipped worldwide has a bigger maximum size than
+  the same thing to Germany - there, a "maxi letter" is apparently needed. We
+  only found out at the post office, and had to put some additional stamps on
+  there - thankfully, this was only on 8 envelopes going to Germany.
+- While I `wrote some code`_ to add additional text to the labels telling us what
+  to pack (which streamlined things extremely compared to last year!), I forgot
+  that I promised 10/15/20 stickers depending on the pledge levels. The ones
+  with 20 stickers were easy to find (as they have two t-shirts), for others
+  there was a pragmatic solution: Simply giving 15 stickers to everyone :)
+
+.. _wrote some code: https://github.com/qutebrowser/crowdfunding-tools/blob/master/internetmarke-annotate/annotate.py
+
+I do hope everything else went according to plan, but if something is wrong with
+what you got, please contact me.
+
+I've also been hard at work on per-domain settings, and I have a first prototype
+to show:
+
+.. image:: /images/per_domain_settings_small.gif
+   :alt: Proof-of-concept for per-domain settings
+   :target: /images/per_domain_settings.gif
+      
+
+It's in the `per-url branch`_, but not quite ready yet - if you want to try it,
+make sure to make a backup of your config directory first. As you can see, it
+requires a reload to apply the settings currently. I'll look into avoiding that
+where possible, but I can't quite tell yet to what extend that will be possible.
+
+.. _per-url branch: https://github.com/qutebrowser/qutebrowser/compare/per-url
