@@ -1,0 +1,72 @@
+############################
+Happy birthday, qutebrowser!
+############################
+
+:tags: pyplanet, qtplanet
+:category: other
+
+5 years ago today, this happened::
+
+  commit 11a94957dc038fc27c5ff976197ad2b2d0352d20
+  Author: Florian Bruhin <git@the-compiler.org>
+  Date:   Sat Dec 14 22:15:16 2013 +0100
+
+      Initial commit
+
+That's how qutebrowser looked a day after that (and that commit still
+seems to run!): https://imgur.com/a/xoG1r4G
+
+Exactly a year later, things were finally ready for a v0.1 release,
+after spending two weeks of holidays with fixing bugs.
+
+Originally, qutebrowser was born because the dwb project was
+discontinued: https://portix.bitbucket.io/dwb/
+
+That's what I (and many others) were using at the time, and all
+alternatives were stuck with an unmaintained WebKit1. Since everything
+was using WebKitGTK which was horribly buggy (and WebKit2 in WebKitGTK
+lacked a lot of basic features), I decided to start my own thing, based
+on Qt instead.
+
+Back then, there were already discussions about QtWebEngine, and I
+originally wondered whether I should just wait with starting qutebrowser
+until it's ready. QtWebEngine support was finally added in July 2016, a
+lot later than I imagined. Initially, many features didn't work yet, but
+in September 2017 it finally became the default backend.
+
+Later, it turned out that qutebrowser also was a viable alternative for
+many Pentadactyl/Vimperator refugees, and qutebrowser got more popular
+than I ever imagined.
+
+So far, there have been:
+
+- 17,227 commits
+-  3,193 issues
+-  1,273 pull requests
+-    242 contributors
+-     47 releases
+-      2 crowdfundings
+- dozens of t-shirts
+- thousands of stickers
+
+Thanks a lot to the whole community - y'all are awesome! I never
+imagined I would be working on this for so long, or that it'd gain so
+much traction. I also didn't believe the crowdfunding thing would work.
+You showed me otherwise \o/
+
+Some 3-4 years ago, I noticed there were a couple of big things I'll be
+busy with for a while:
+
+- Adding a testsuite because things broke a lot
+- QtWebEngine
+- The new config system
+- An extension API
+
+I'm currently working on the fourth one. Not many new very big tasks
+have appeared (except maybe a testsuite which isn't as unreliable and
+slow, and some refactorings to keep my sanity when working on the code).
+
+I'm really looking forward to the point where I can work on smaller
+things (and new features) again - for a long time, most of my time was
+spent reviewing contributions, fixing bugs, putting out fires with Qt
+upgrades, and working on those four major things.
