@@ -13,7 +13,7 @@ FTP_USER=anonymous
 FTP_TARGET_DIR=/
 
 SSH_HOST=the-compiler.org
-SSH_PORT=2323
+SSH_PORT=27022
 SSH_USER=florian
 SSH_TARGET_DIR=/srv/http/qutebrowser/blog
 
