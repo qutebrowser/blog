@@ -1,0 +1,155 @@
+#################################################
+Current qutebrowser roadmap and next crowdfunding
+#################################################
+
+:category: other
+:tags: pyplanet, qtplanet
+
+More than half a year ago, I posted a qutebrowser `roadmap`_ - I thought it's
+about time for an update on how things are looking at the moment!
+
+.. _roadmap: https://lists.schokokeks.org/pipermail/qutebrowser-announce/2019-March/000058.html
+
+*********************
+Upcoming crowdfunding
+*********************
+
+I finished my Bachelor of Science in September at the `University of Applied
+Sciences`_ in Rapperswil.
+
+.. _University of Applied Sciences: https://www.hsr.ch/en/
+
+Now I'm employed around 16h/week at the same place, mainly helping out with the
+operating systems course (in other words: I spend my time staring at
+LaTeX/C/Assembler/Python and teaching students).
+
+Like already mentioned in the earlier mail, this means I now have a lot more
+time than before for working on open-source projects. I'm in the process of
+founding my own one-man company and already have some work lined up - but as
+soon as everything is set up, I plan to spend much more time on qutebrowser.
+Certainly a lot more than what I've been able to during my studies in the past
+years.
+
+However, that means I don't have a lot of recurring income (enough to pay for
+rent, food and other bills - but not much more than that). This is why I plan
+to start another qutebrowser fundraising very soon. There will be shirts and
+stickers available again, as well as some other swag. This time, I'll focus on
+recurring donations, but I also plan to offer a way to contribute via one-time
+donations instead.
+
+I got accepted into the Beta of `GitHub Sponsors`_ - thanks to GitHub's
+`matching fund`_, all donations (up to a total of $5000) in the first year will
+be *doubled*. Thus, GitHub Sponsors is the platform I'll use for recurring
+donations. For one-time donations, I'll likely offer various options (Stripe,
+PayPal, Bitcoin, SEPA Bank Transfers), but I want to get recurring donations up
+and running first.
+
+.. _GitHub Sponsors: https://github.com/sponsors
+.. _matching fund: https://help.github.com/en/github/supporting-the-open-source-community-with-github-sponsors/about-github-sponsors#about-the-github-sponsors-matching-fund
+
+******************
+Current priorities
+******************
+
+As for qutebrowser itself, my current priorities are the following:
+
+Keeping qutebrowser up and running
+==================================
+
+All 6 months, a new Qt feature release is published. Other upgrades (like
+Python itself) also need attention from time to time.
+
+Testing new Qt versions early means that I can report bugs upstream during the
+Alpha/Beta phase, which means they'll likely get fixed before a release. Often,
+adjustments to qutebrowser itself are also needed to keep it running smoothly
+when distributions upgrade their Qt versions.
+
+In the past few weeks, I spent quite some time dealing with Qt 5.13.1/.2,
+`Qt 5.14`_ and `Python 3.8`_.
+
+.. _Python 3.8: https://github.com/qutebrowser/qutebrowser/issues/4928
+.. _Qt 5.14: https://github.com/qutebrowser/qutebrowser/issues/5013
+
+A change coming with PyQt 5.14 currently causes trouble with a piece of
+qutebrowser (the object registry) which I `wanted to remove`_ for a while now. I
+started working on that as well recently, but there's more refactoring work
+needed to complete the removal.
+
+.. _wanted to remove: https://github.com/qutebrowser/qutebrowser/issues/640
+
+In 2020, Python 2 will (finally!) be retired, but qutebrowser still uses
+asciidoc for its documentation, which is unmaintained and based on Python 2.
+I intend to switch to `Sphinx`_ instead, which should also make it easier to write
+(more) nice documentation for qutebrowser.
+
+.. _Sphinx: http://www.sphinx-doc.org/
+
+Getting the pull request backlog down
+=====================================
+
+Since I had barely enough time to keep things running smoothly during my
+studies, a `backlog`_ of contributions accumulated.
+
+.. _backlog: https://github.com/qutebrowser/qutebrowser/pulls
+
+There are various new features, bugfixes, performance improvements and a lot of
+other great work to find there.
+
+I find reviewing code to be something that takes more concentrated focus than
+writing code, so I can't review PRs all day (I tried!). However, I plan to
+spend some time on the PR backlog regularily to get things back to normal
+again.
+
+Extension API
+=============
+
+I want to continue work on the `extension API`_ in order to get something released
+which is generally available and usable.
+
+.. _extension API: https://github.com/qutebrowser/qutebrowser/issues/30
+
+Much of the work on the extension API also ties into the next point - there's a
+lot of refactoring needed to get (sometimes quite old) code into a shape where
+it is reasonably nice to expose via an extension API.
+
+I'm aware this is taking a lot longer than originally anticipated. However, I'd
+like to avoid exposing code where I anticipate major changes/restructurings -
+otherwise, every qutebrowser upgrade would break a lot of extensions every
+time.
+
+Increasing maintainability
+==========================
+
+This means reducing technical debt, improving the testsuite (getting it to run
+faster and more stable) and introducing mypy / type hints across the codebase.
+
+In the past few weeks, I added type hints to various qutebrowser modules and
+got mypy running with the ``--check-untyped-defs`` flag. That flag tells mypy to
+check the bodies of functions which are not type annotated yet, which uncovered
+a few subtle bugs and will make upcoming refactorings a lot easier.
+
+Second look at the config system
+================================
+
+The new configuration system (introduced in the 2017 crowdfunding) works quite
+well - especially compared to the old one. However, some design decisions in it
+cause various performance issues. I have some ideas how to change those
+internals to make things faster and simpler. In the past few months,
+contributors (especially `@jgkamat`_) have worked on various performance
+improvements, but I believe a bigger impact would be possible by changing how
+qutebrowser stores configuration data internally.
+
+.. _@jgkamat: http://jgkamat.gitlab.io/
+
+tl;dr
+=====
+
+- Keeping things running smoothly
+- Taking care of open contributions
+- Working on the extension API and at the same time refactoring various areas
+- Making configuration internals faster and simpler
+
+I'm excited to see what's to come and how the fundraising turns out. Feedback
+very welcome!
+
+-- Florian / @The-Compiler
