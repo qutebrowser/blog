@@ -1,0 +1,24 @@
+#############################################################
+2019 qutebrowser crowdfunding with shirts, stickers and more!
+#############################################################
+
+:category: other
+:tags: pyplanet, qtplanet
+
+I'm very happy to announce that the next qutebrowser crowdfunding went live
+today! \o/
+
+This time, I'm focused on recurring donations via GitHub Sponsors. Those
+donations will allow me to work part-time on qutebrowser! Thanks to the GitHub
+Matching Fund, all donations (up to $5000 in the first year) will be doubled.
+
+Just like in the 2017/2018 crowdfundings, it'll be possible to get t-shirts and
+stickers again. I'll also add some new swag to the mix :)
+
+You can find all details on my `GitHub Sponsors page <https://github.com/sponsors/The-Compiler/>`_
+and the `FAQ I've written <https://github.com/qutebrowser/qutebrowser/blob/master/doc/faq.asciidoc#sponsors>`_.
+
+I'm excited for what's to come! If you run into any trouble or have questions,
+please `let me know <mailto:mail@qutebrowser.org>`_.
+
+-- Florian / @The-Compiler
