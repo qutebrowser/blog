@@ -1,0 +1,18 @@
+######################################
+qutebrowser meetup Berlin (2019-11-28)
+######################################
+
+:category: other
+:tags: pyplanet, qtplanet
+
+I (The-Compiler) am currently in Berlin - I've met with Qt/QtWebEngine
+developers at Qt Contributors Summit and had some very interesting development
+discussions there. There are some
+`writeups <https://wiki.qt.io/Category:QtCS2019>`_ available in the Qt Wiki.
+
+Next Thursday (28th) I'd like to have a small qutebrowser user meetup here :)
+We'll meet at 19:00 in the
+`AfRA Hackerspace <https://afra-berlin.de/dokuwiki/doku.php?id=en:start>`_
+in Berlin Lichtenberg.
+
+See (some of) you there, hopefully!
