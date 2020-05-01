@@ -190,7 +190,7 @@ This helped me tremendously and resulted in 15 PRs being merged since I opened
 the project board 16 days ago. I finally feel like I'm not missing the forest
 for the trees anymore. I hope I'll be able to continue the trend of merging
 around 1 PR per day on average (at least until I get to the more complex ones),
-but there are is also another urgent change coming up - more on that in the next
+but there is also another urgent change coming up - more on that in the next
 section.
 
 Thanks again to everyone for your patience. Around once a week or so, people ask
@@ -352,7 +352,7 @@ support for a different backend (such as `Chromium Embedded Framework`_) which
 means months of work on top of an already giant backlog; or throw the towel.
 Having a browser backend with a year delay in security updates is unacceptable
 to me, and due to Qt's commercial license terms, purchasing a commercial license
-isn't a reaslistic option either.
+isn't a realistic option either.
 
 Needless to say, this would be a very hard decision to take. For now, it looks
 like The Qt Company just used this to bluff (probably to get some other
