@@ -77,7 +77,7 @@ various gigs in late 2019 and early 2020:
    :target: https://www.youtube.com/watch?v=zdsBS5BXGqQ
 
 I don't intend this to get something too big - and I'm not financially dependent
-on either donations or freelancing work, as I'm still employed 40% by an
+on either donations or freelancing work, as I'm still employed 40% by a
 university. Still: If you're interested in trainings or consulting around Python
 (especially the language itself, testing with pytest, or writing GUIs with PyQt5
 or PySide2): Please reach out to `florian@bruhin.software`_!
@@ -154,7 +154,7 @@ to the small day-to-day things). It's possible I'll be able to ramp
 that up soon - for the next 4-5 weeks, there's still a lot to finish for
 university lectures.
 
-Around June/July/August, I might also able to devote some bigger blocks of time
+Around June/July/August, I might also be able to devote some bigger blocks of time
 to qutebrowser as there are no weekly university preparation deadlines - for
 example, I could work for a week or two on qutebrowser only, and then on
 university stuff for another week or two. I will need to experiment a bit to see
