@@ -1,0 +1,25 @@
+name: main
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Checkout themes
+        uses: actions/checkout@v2
+        with:
+          repository: getpelican/pelican-themes
+          path: pelican-themes
+      - name: Checkout plugins
+        uses: actions/checkout@v2
+        with:
+          repository: getpelican/pelican-plugins
+          path: pelican-plugins
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - run: pip install pelican GitPython
+      - run: make html
