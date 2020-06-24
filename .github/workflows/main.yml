@@ -23,3 +23,5 @@ jobs:
           python-version: '3.x'
       - run: pip install pelican GitPython
       - run: make html
+        env:
+          PELICAN: pelican  # system-wide
