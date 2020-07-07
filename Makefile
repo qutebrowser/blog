@@ -12,10 +12,10 @@ FTP_HOST=localhost
 FTP_USER=anonymous
 FTP_TARGET_DIR=/
 
-SSH_HOST=the-compiler.org
-SSH_PORT=27022
-SSH_USER=florian
-SSH_TARGET_DIR=/srv/http/qutebrowser/blog
+SSH_HOST=caliban.uberspace.de
+SSH_PORT=22
+SSH_USER=qute
+SSH_TARGET_DIR=/home/qute/html/blog
 
 S3_BUCKET=my_s3_bucket
 
