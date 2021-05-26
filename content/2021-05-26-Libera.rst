@@ -1,0 +1,112 @@
+#################################
+qutebrowser moving to Libera Chat
+#################################
+
+:tags: pyplanet, qtplanet
+:category: other
+
+This blog has been lying dormant for almost a year now, but rest assured it's
+still alive. I usually don't bother posting minor release announcements here
+(they can be found on the `announcement mailinglist
+<https://lists.schokokeks.org/mailman/listinfo.cgi/qutebrowser-announce>`_ as
+well as the `subreddit <https://www.reddit.com/r/qutebrowser/>`_),
+on top of that I totally forgot writing a blog post about the v2.0.0 release...
+
+With that out of the way, I want to announce that qutebrowser, like many other
+projects, has moved its IRC chat from Freenode to
+`Libera Chat`_, after a rather hostile and sudden
+`takeover of Freenode <https://gist.github.com/joepie91/df80d8d36cd9d1bde46ba018af497409>`_
+by `Andrew Lee <https://en.wikipedia.org/wiki/Andrew_Lee_(entrepreneur)>`_ / ``rasengan``
+(founder of the VPN provider Private Internet Access, and apparently
+`crown prince of South Korea
+<https://www.scmp.com/week-asia/people/article/2175439/no-k-drama-fresh-prince-south-korea-real-royalty-and-hes-american>`_,
+or something).
+
+I spent literally more than half my life on Freenode:
+
+   -- NickServ: Information on The-Compiler (account The-Compiler):
+   -- NickServ: Registered : Dec 30 02:21:14 2006 (14y 21w 4d ago)
+
+and thus was quite surprised when a (now former) Freenode staffer I trust
+messaged me two weeks ago. He asked me what I'd do in the hypothetical case
+Freenode was being taken over, and I wasn't sure what to think. It all sounded
+very far away, and I was hoping it wouldn't turn out that way.
+
+A week later, unfortunately, the `takeover happened
+<https://twitter.com/freenodestaff/status/1395046345145307140>`_. All the draft
+resignation letters suddenly weren't drafts anymore, with the Freenode staff
+quitting. The staff started to a new network `Libera Chat`_, and
+at that point, I joined  the #qutebrowser channels there to make sure they
+weren't taken over. Thankfully, another community member (`arza
+<http://arza.us/>`_) had already taken care of that, all that was left for me is
+to officially register the qutebrowser project there. Despite Libera `being run over
+<https://libera.chat/news/one-week-of-libera-chat>`_ by new users, project
+registrations and other user requests, the registration went through quickly and
+smoothly. There were a couple of initial server hiccups, but it was clear those people
+knew how to run a community. The same can't be said about the new Freenode
+admins, unfortunately...
+
+I didn't move yet, as I still wanted to see how this whole thing pans out. In
+case people wanted to move before the channel did, I made sure to point out
+"#qutebrowser on libera.chat exists" in the channel topic on Freenode.
+
+I was planning to do the full move tomorrow. While Andrew Lee and the new
+Freenode admins `continue to claim <https://freenode.net/news/for-foss>`_ that
+they're doing the right thing for FOSS, their behavior speaks for itself: After
+`taking over a single channel <https://www.devever.net/~hl/freenode_abuse>`_,
+then retroactively `adjusting their policy
+<https://github.com/freenode/web-7.0/pull/513/files>`_ accordingly, tonight this
+happened:
+
+   05:02 -> freenodecom (~com@freenode/staff) has joined #qutebrowser
+
+   05:02 -- freenodecom has changed topic for #qutebrowser from "Current: v2.2.2 - #qutebrowser on irc.libera.chat exists, full move ~soon - [...]" to "This channel has moved to ##qutebrowser. The topic is in violation of freenode policy: https://freenode.net/policies"
+
+   05:02 <@freenodecom> This channel has been reopened with respect to the communities and new users. The topic is in violation of freenode policy: https://freenode.net/policies
+
+   05:02 <@freenodecom> The new channel is ##qutebrowser
+
+   05:02 <- freenodecom (~com@freenode/staff) has left #qutebrowser
+
+The same thing happened to many other channels, including e.g. the `channel for
+the FOSDEM conference <https://twitter.com/fosdem/status/1397454352835653632>`_,
+the third-largest channel on Freenode.
+
+Of course, after the backlash they claim this was by mistake:
+
+   06:15 -- rasengan (~rasengan@freenode/staff/rasengan): [Global Notice] In the recent policy enforcement, some channels were erroneously included. We greatly apologize for the inconvenience. Please contact us in #freenode-services or contact-us@freenode.net. Thanks for your patience and choosing freenode!   
+
+My take on this: It **really doesn't matter** whether some additional channels
+were included by mistake. Automatically closing channels (after being active
+communities for years!) based on some kind of match on the topic mentioning
+Libera Chat is malicious power abuse no matter how you twist it. Not only that,
+it's grossly incompetent on top of that.
+
+I originally planned to set up something like `Matterbridge`_ to bridge the
+Freenode and Libera channels, so that people can move over at their own pace.
+With the
+#qutebrowser channel now forcibly removed by Freenode out of the blue, I'm not
+going to bother reinstantiating it. Effective immediately, the IRC chat for
+qutebrowser has `moved
+<https://github.com/qutebrowser/qutebrowser/commit/7961cf73553847ea265a388b736fffac77dae66a>`_
+to `irc.libera.chat <ircs://irc.libera.chat:6697/#qutebrowser>`_, with a
+`webchat <https://kiwiirc.com/nextclient/irc.libera.chat:+6697/#qutebrowser>`_
+by KiwiIRC.
+
+I urge other projects to do the same sooner rather than later. From what it
+looks like, Freenode can't be salvaged, and it's probably only going to get
+worse.
+
+I'm also planning to play with `Matterbridge`_ regardless, and see if I can maybe
+bridge the IRC channel to more modern platforms like `Matrix
+<https://matrix.org/>`_, `Discord <https://discord.com/>`_ or a `Telegram
+<https://telegram.org/>`_ groupchat.  It'd be an interesting experiment to see
+if that'd attract more/different people than an (arguably somewhat dated) IRC
+channel. But let's take things one step at a time.
+
+The sudden loss of a community I joined when I was 13 years old is saddening,
+and it's crazy how quickly this all went downhill. Let's move on, to Libera
+Chat!
+
+.. _`Libera chat`: https://libera.chat
+.. _`Matterbridge`: https://github.com/42wim/matterbridge
